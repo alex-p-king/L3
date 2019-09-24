@@ -34,6 +34,7 @@ int Review::getRating()const{
     return m_rating;
 }
 
-void Review::print()const{
-    std::cout << "{" << m_name << ", " << m_rating << ", " << m_price << "}\n";
+std::string Review::print()const{
+     std::string s = "{" + m_name + ", " + std::to_string(m_rating) + ", " + m_price + "} ";
+     return s;
 }

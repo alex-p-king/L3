@@ -12,7 +12,7 @@ class Review{
         std::string getName()const;
         std::string getPrice()const;
         int getRating()const;
-        void print()const;
+        std::string print()const;
 
         Review operator =(const Review& x){
             this->m_name = x.m_name;

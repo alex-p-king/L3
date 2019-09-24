@@ -12,11 +12,11 @@ class Driver{
 		void menu();
 		void insert();
 		void remove();
+		void findByName();
 		void findByRating();
 		void findByPrice();
 		void print();
 		void test();
-		void printResults(std::pair<bool,bool> results, std::string op);
 	private:
 		QHash m_Qtable;
 		DHash m_Dtable;

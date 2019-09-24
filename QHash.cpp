@@ -22,17 +22,24 @@ int QHash::hash(std::string name){
         }
         i++;
     }
-    std::cout << "***ERROR***QPROBING FAILED\n";
+    std::cout << table << "***ERROR***QPROBING FAILED\n";
     return -1;
 
 }
 
 bool QHash::insert(Review r){
+     for(int i = 0; i < m_bucketSize; i++){
+        if(m_arr[i].getName() == r.getName()){
+            std::cout << table << r.getName() << " is already in Table\n";
+            return false;
+        }
+    }
     int index = hash(r.getName());
     if(index == -1){
-        std::cout << "***ERROR*** Quadratic Probing Failed\n";
+        std::cout << table << "***ERROR*** Quadratic Probing Failed\n";
         return false;
     }
+    std::cout << table << r.print() << " has been inserted into bucket " << index << "\n";
     m_arr[index] = r;
     return true;
 }

@@ -48,13 +48,15 @@ void Driver::run(){
 			break;
 		case 2: remove();
 			break;
-		case 3: findByRating();
+		case 3: findByName();
 			break;
-		case 4: findByPrice();
+		case 4: findByRating();
 			break;
-		case 5: print();
+		case 5: findByPrice();
 			break;
-		case 6: quit = true;
+		case 6: print();
+			break;
+		case 7: quit = true;
 		default:
 			break;
 		}
@@ -62,7 +64,7 @@ void Driver::run(){
 }
 
 void Driver::menu(){
-	std::cout << "\n*********************************\n1) insert\n2) remove\n3) Find by Rating\n4) Search by Price\n5) Print\n6) Quit\n\nSelection: ";
+	std::cout << "\n*********************************\n1) insert\n2) remove\n3) Find by Name\n4) Find by Rating\n5) Find by Price\n6) print\n7)Quit\n\nSelection: ";
 }
 
 void Driver::insert(){
@@ -75,81 +77,65 @@ void Driver::insert(){
 	r.setName(name);
 	r.setPrice(price);
 	r.setRating(rating);
-	bool qt = false;
-	bool dt = false;
-	qt = m_Qtable.insert(r) ? true : false;
-	dt = m_Dtable.insert(r) ? true : false;
-	if(qt){
-		r.print();
-		std::cout << "Was inserted"; 
-	}
-	else{
-		r.print();
-		std::cout << "Was not inserted";
-	}
-	if(dt){
-		r.print();
-		std::cout << "Was inserted";
-	}
-	else{
-		r.print();
-		std::cout << "Was not inserted";
-	}
-
+	m_Qtable.insert(r);
+	m_Dtable.insert(r);
 }
 
 void Driver::remove(){
 	std::string name;
 	std::cout << "Enter a name to remove: ";
 	std::cin >> name;
-	bool qt = m_Qtable.remove(name);
-	bool dt = m_Dtable.remove(name);
-	std::pair <bool, bool> results (qt,dt);
-	printResults(results, "remove");
-	
+	m_Qtable.remove(name,"Quadratic: ");
+	m_Dtable.remove(name,"Double: ");
+}
 
+void Driver::findByName(){
+	std::string name;
+	std::cout << "Enter a name to find: ";
+	std::cin >> name;
+	m_Qtable.findByName(name,"Quadratic: ");
+	m_Dtable.findByName(name,"Double: ");
 }
 
 void Driver::findByRating(){
 	int rating;
 	std::cout << "Enter a name to find: ";
 	std::cin >> rating;
-	bool qt = m_Qtable.findByRating(rating);
-	bool dt = m_Dtable.findByRating(rating);
-	std::pair <bool, bool> results (qt,dt);
-	printResults(results, "fRating");
+	if(rating > 0 && rating < 6){
+		m_Qtable.findByRating(rating,"Quadratic: ");
+		m_Dtable.findByRating(rating,"Double: ");
+	}
+	else{
+		std::cout << "rating must be between 1 and 5\n";
+	}
+	
+	
 }
 
 void Driver::findByPrice(){
 	std::string price;
 	std::cout << "Enter a price to find: ";
 	std::cin >> price;
-	bool qt = m_Qtable.findByPrice(price);
-	bool dt = m_Dtable.findByPrice(price);
-	std::pair <bool, bool> results (qt,dt);
-	printResults(results, "fPrice");
+	if((price == "$")||(price == "$$")||(price == "$$$")){
+		m_Qtable.findByPrice(price,"Quadratic: ");
+		m_Dtable.findByPrice(price,"Double: ");
+	}
+	else{
+		std::cout << "price must be '$' or '$$' or '$$$'\n";
+	}
+	
 }
 
 void Driver::print(){
-	m_Qtable.print();
-	m_Dtable.print();
+	Review* qt = m_Qtable.getArray();
+	Review* dt = m_Dtable.getArray();
+	std::cout << "Quadratic ------- Double\n" << std::endl;
+	for(int i = 0; i < m_Qtable.getBucketSize(); i++){
+		std::cout << "index[" << i << "]: " << qt[i].print() << " -------  " << dt[i].print() << std::endl; 
+	}
 }
 
 void Driver::test(){
 	
-}
-void Driver::printResults(std::pair<bool,bool> results, std::string op){
-	if(results.first){
-		std::cout << "QTable: TRUE\n"; 
-	}
-	else{
-		std::cout << "QTable: FALSE\n";
-	}
-	if(results.second){
-		std::cout << "DTable: TRUE\n";
-	}
-	else{
-		std::cout << "DTable: FALSE\n";
-	}
 }
 
