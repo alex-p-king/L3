@@ -22,7 +22,7 @@ class Review{
         }
         
     private:
-        std::string m_name;
-        std::string m_price;
-        int m_rating;
+        std::string m_name = "";
+        std::string m_price = "";
+        int m_rating = 0;
 };

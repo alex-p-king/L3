@@ -121,17 +121,18 @@ void Driver::findByRating(){
 }
 
 void Driver::findByPrice(){
-	std::string name;
+	std::string price;
 	std::cout << "Enter a price to find: ";
-	std::cin >> name;
-	bool qt = m_Qtable.findByPrice(name);
-	bool dt = m_Dtable.findByPrice(name);
+	std::cin >> price;
+	bool qt = m_Qtable.findByPrice(price);
+	bool dt = m_Dtable.findByPrice(price);
 	std::pair <bool, bool> results (qt,dt);
 	printResults(results, "fPrice");
 }
 
 void Driver::print(){
-
+	m_Qtable.print();
+	m_Dtable.print();
 }
 
 void Driver::test(){
