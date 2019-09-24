@@ -100,7 +100,7 @@ void Driver::insert(){
 
 void Driver::remove(){
 	std::string name;
-	std::cout << "Enter the name to remove: ";
+	std::cout << "Enter a name to remove: ";
 	std::cin >> name;
 	bool qt = m_Qtable.remove(name);
 	bool dt = m_Dtable.remove(name);
@@ -112,7 +112,7 @@ void Driver::remove(){
 
 void Driver::findByRating(){
 	int rating;
-	std::cout << "Enter the name to remove: ";
+	std::cout << "Enter a name to find: ";
 	std::cin >> rating;
 	bool qt = m_Qtable.findByRating(rating);
 	bool dt = m_Dtable.findByRating(rating);
@@ -122,7 +122,7 @@ void Driver::findByRating(){
 
 void Driver::findByPrice(){
 	std::string name;
-	std::cout << "Enter the name to remove: ";
+	std::cout << "Enter a price to find: ";
 	std::cin >> name;
 	bool qt = m_Qtable.findByPrice(name);
 	bool dt = m_Dtable.findByPrice(name);
