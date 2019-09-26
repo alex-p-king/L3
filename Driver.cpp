@@ -64,21 +64,34 @@ void Driver::run(){
 }
 
 void Driver::menu(){
-	std::cout << "\n*********************************\n1) insert\n2) remove\n3) Find by Name\n4) Find by Rating\n5) Find by Price\n6) print\n7)Quit\n\nSelection: ";
+	std::cout << "\n*********************************\n1) insert\n2) remove\n3) Find by Name\n4) Find by Rating\n5) Find by Price\n6) print\n7) Quit\n\nSelection: ";
 }
 
 void Driver::insert(){
 	Review r;
 	std::string name = "TEMPNAME";
 	std::string price = "TEMPPRICE";
+	bool check1 = true;
+	bool check2 = false;
 	int rating = -1;
 	std::cout << "please enter a Review of format 'restaurant_name [1-5] [$-$$$]\n" << "//: ";
 	std::cin >> name >> rating >> price;
-	r.setName(name);
-	r.setPrice(price);
-	r.setRating(rating);
-	m_Qtable.insert(r);
-	m_Dtable.insert(r);
+	if(rating < 1 || rating > 5){
+		check1 = false;
+	}
+	if(price == "$" || price == "$$" || price == "$$$"){
+		check2 = true;
+	}
+	if(check1 && check2){
+		r.setName(name);
+		r.setPrice(price);
+		r.setRating(rating);
+		m_Qtable.insert(r);
+		m_Dtable.insert(r);
+	}
+	else{
+		std::cout << "Insertion failed please enter a valid review\n";
+	}
 }
 
 void Driver::remove(){
